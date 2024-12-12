@@ -1,10 +1,12 @@
 var createError = require("http-errors");
 var express = require("express");
-var cors = require("cors");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+
+var cors = require("cors");
 const session = require("express-session");
+const mysql = require('mysql');
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -25,6 +27,22 @@ app.use(
 
 // for safty
 app.disable("x-powered-by");
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'your_username',
+  password: 'your_password',
+  database: 'your_database_name'
+});
+
+// Connect to MySQL
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL: ' + err.stack);
+    return;
+  }
+  console.log('Connected to MySQL as ID ' + db.threadId);
+});
 
 // enable session
 app.use(
