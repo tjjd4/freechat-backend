@@ -1,85 +1,77 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import cors from 'cors';
+import session from 'express-session';
+import mysql from 'mysql2/promise';
+import { fileURLToPath } from 'url';
 
-var cors = require("cors");
-const session = require("express-session");
-const mysql = require('mysql');
+// 引入路由
+import indexRouter from './routes/index.js';
+// import usersRouter from './routes/users.js';
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+// 獲取當前文件名和目錄名
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-var app = express();
+const app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// 設置視圖引擎
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-// enable cross-origin resource sharing: accept request from other domain
+// 啟用跨域資源共享
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: 'http://localhost:5173',
     credentials: true,
   })
 );
 
-// for safty
-app.disable("x-powered-by");
+// 禁用 "x-powered-by" 頭信息
+app.disable('x-powered-by');
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database_name'
-});
 
-// Connect to MySQL
-db.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL: ' + err.stack);
-    return;
-  }
-  console.log('Connected to MySQL as ID ' + db.threadId);
-});
-
-// enable session
+// 啟用 session 支持
 app.use(
   session({
-    secret: "your_secret_key",
+    secret: 'your_secret_key',
     resave: true,
     saveUninitialized: false,
     cookie: {
-      secure: false, // only using https（開發環境設為 false）
+      secure: false, // 僅在 https 環境下使用（開發環境設為 false）
       maxAge: 3600000,
     },
   })
 );
 
-app.use(logger("dev"));
+// 中介軟體設置
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// 路由設置
+app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
+// 處理 404 錯誤
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+// 錯誤處理
+app.use((err, req, res, next) => {
+  // 設置本地變量，只在開發環境中提供錯誤信息
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // 渲染錯誤頁面
   res.status(err.status || 500);
-  res.render("error");
+  res.render('error');
 });
 
-module.exports = app;
+export default app;
