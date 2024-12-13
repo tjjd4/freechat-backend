@@ -9,8 +9,8 @@ import mysql from 'mysql2/promise';
 import { fileURLToPath } from 'url';
 
 // 引入路由
-import indexRouter from './routes/index.js';
-// import usersRouter from './routes/users.js';
+import indexRouter from './src/routes/index.js';
+import usersRouter from './src/routes/users.js';
 
 // 獲取當前文件名和目錄名
 const __filename = fileURLToPath(import.meta.url);
@@ -56,7 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 路由設置
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+app.use('/users', usersRouter);
 
 // 處理 404 錯誤
 app.use((req, res, next) => {

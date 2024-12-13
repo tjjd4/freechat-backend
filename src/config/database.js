@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-export default {
+const dbConfig = {
   development: {
     username: process.env.DEV_DB_USERNAME,
     password: process.env.DEV_DB_PASSWORD,
@@ -30,4 +30,6 @@ export default {
   //     bigNumberStrings: true
   //   }
   // },
-}
+};
+
+export default dbConfig;

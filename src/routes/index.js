@@ -1,4 +1,5 @@
 import express from 'express';
+import { checkLoginInfo } from '../services/useUser.js';
 
 const router = express.Router();
 
@@ -7,19 +8,16 @@ const router = express.Router();
 //   res.render("index", { title: "Express" });
 // });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body;
-
-  const user = {
-    username: username,
-  };
-
-  if (username === 'sss' && password === 'bbb') {
-    req.session.user = { username: username };
+  const user = await checkLoginInfo(username, password);
+  if (user) {
+    req.session.user = { userId: user.id, name: user.name };
+    console.log(req.session.user);
     res.status(200).json({
       success: true,
       message: 'Login successful',
-      user,
+      username: user.username,
     });
   } else {
     res.status(400).json({
@@ -35,7 +33,7 @@ router.get('/is_login', (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Logged In',
-      user,
+      name: user.name,
     });
   } else {
     res.status(200).json({
@@ -50,7 +48,7 @@ router.post('/logout', (req, res) => {
     if (err) {
       return res.status(500).json({ success: false, message: 'Logout failed' });
     }
-    res.clearCookie('connect.sid'); // 清除會話 Cookie
+    res.clearCookie('connect.sid'); // 清除登入 Cookie
     res.status(200).json({ success: true, message: 'Logged out successfully' });
   });
 });

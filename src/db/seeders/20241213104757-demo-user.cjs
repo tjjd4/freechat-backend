@@ -13,6 +13,15 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
+      {
+        username: 'aaa',
+        name: 'apple',
+        password: 'bbb',
+        role_id: 1,
+        is_deleted: false,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     ]);
   },
 

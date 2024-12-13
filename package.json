@@ -4,7 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "_moduleAliases": {
+    "@": "./src",
+    "@services": "./src/services",
+    "@controllers": "./src/routes"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,11 +21,17 @@
     "express-session": "^1.18.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "module-alias": "^2.2.3",
     "morgan": "~1.9.1",
     "mysql2": "^3.11.5",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.6.2"
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
+    "sequelize-cli": "^6.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }
