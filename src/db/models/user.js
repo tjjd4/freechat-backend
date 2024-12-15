@@ -9,6 +9,9 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      // foreign key being defined in the target model
+      User.hasMany(models.FriendPair);
     }
   }
 
@@ -20,11 +23,28 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      username: DataTypes.STRING,
-      name: DataTypes.STRING,
-      password: DataTypes.STRING,
-      role_id: DataTypes.INTEGER,
-      is_deleted: DataTypes.BOOLEAN,
+      username: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      name: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      role_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      is_deleted: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: false,
+      },
     },
     {
       sequelize,

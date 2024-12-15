@@ -5,5 +5,9 @@ export const checkLoginInfo = async (username, password) => {
 };
 
 export const getUserInfoById = async (userId) => {
-    return await db.User.findOne({ where: { id: userId }});
-}
+  return await db.User.findOne({ where: { id: userId }});
+};
+
+export const getFriendPairsById = async (userId) => {
+  return await db.FriendPair.findAll({ where: { user_id: userId }});
+};

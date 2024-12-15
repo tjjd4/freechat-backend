@@ -17,7 +17,6 @@ router.post('/login', async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Login successful',
-      username: user.username,
     });
   } else {
     res.status(400).json({
@@ -33,7 +32,7 @@ router.get('/is_login', (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Logged In',
-      name: user.name,
+      data: user.name,
     });
   } else {
     res.status(200).json({
