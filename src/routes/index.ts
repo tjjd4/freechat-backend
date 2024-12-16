@@ -32,7 +32,7 @@ router.get('/is_login', (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Logged In',
-      data: user.name,
+      data: user,
     });
   } else {
     res.status(200).json({
@@ -45,7 +45,7 @@ router.get('/is_login', (req, res) => {
 router.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).json({ success: false, message: 'Logout failed' });
+      res.status(500).json({ success: false, message: 'Logout failed' });
     }
     res.clearCookie('connect.sid'); // 清除登入 Cookie
     res.status(200).json({ success: true, message: 'Logged out successfully' });

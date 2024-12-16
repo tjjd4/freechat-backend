@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "start": "ts-node ./src/app.ts", 
+    "dev": "nodemon"
   },
   "_moduleAliases": {
     "@": "./src",
@@ -27,7 +27,13 @@
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
     "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.1",
+    "@types/http-errors": "^2.0.4",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.2",
     "nodemon": "^3.1.9",
     "sequelize-cli": "^6.6.2",

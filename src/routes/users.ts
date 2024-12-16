@@ -5,7 +5,7 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
-  const userInfo = await getUserInfoById(req.session.user.userId);
+  const userInfo = await getUserInfoById(req.session.user!.userId);
   if (userInfo) {
     res.status(200).json({
       success: true,
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/friends', async (req, res) => {
-  const friendPairs = await getFriendPairsById(req.session.user.userId);
+  const friendPairs = await getFriendPairsById(req.session.user!.userId);
 
   res.status(200).json({
     success: true,

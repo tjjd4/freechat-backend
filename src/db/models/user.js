@@ -11,7 +11,9 @@ export default (sequelize, DataTypes) => {
       // define association here
 
       // foreign key being defined in the target model
-      User.hasMany(models.FriendPair);
+      User.hasMany(models.FriendPair, {
+        foreignKey: ['user_id', 'friend_id'],
+      });
     }
   }
 
