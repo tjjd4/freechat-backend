@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkLoginInfo } from '../services/useUser.js';
+import { checkLoginInfo } from '../services/useUser';
 
 const router = express.Router();
 
@@ -11,9 +11,11 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await checkLoginInfo(username, password);
+
   if (user) {
-    req.session.user = { userId: user.id, name: user.name };
-    console.log(req.session.user);
+    /// #[TODO] ## remove as any for better typechecking
+    (req.session as any).user = { userId: user.id, name: user.name };
+    
     res.status(200).json({
       success: true,
       message: 'Login successful',

@@ -1,20 +1,16 @@
+/// <reference path="./types/session.d.ts" />
 import express, { Request, Response, NextFunction } from 'express';
 import createError, { HttpError } from 'http-errors';
 import path from 'path';
-import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import session from 'express-session';
-import { fileURLToPath } from 'url';
 import http from 'http';
 import debugLib from 'debug';
 
 // 引入路由
-// import indexRouter from './routes/index';
-// import usersRouter from './src/routes/users'; // 如果需要用到其他路由，取消註解
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import indexRouter from './routes/index';
+import usersRouter from './routes/users';
 
 const debug = debugLib('freechat-backend:server');
 
@@ -27,7 +23,6 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 啟用跨域資源共享
@@ -55,8 +50,8 @@ app.use(
 );
 
 // 路由設置
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter); // 如果需要更多路由，取消註解
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // 處理 404 錯誤
 app.use((req: Request, res: Response, next: NextFunction) => {

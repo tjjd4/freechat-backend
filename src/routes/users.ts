@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserInfoById, getFriendPairsById } from '../services/useUser.js';
+import { getUserInfoById, getFriendPairsById } from '../services/useUser';
 
 const router = express.Router();
 

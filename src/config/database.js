@@ -1,17 +1,7 @@
 import dotenv from 'dotenv';
-import { Dialect } from 'sequelize';
 dotenv.config();
 
-interface DbConfig {
-  database: string;
-  username: string;
-  password: string;
-  host: string;
-  port: number;
-  dialect: Dialect;
-}
-
-const dbConfig: Record<string, DbConfig> = {
+const dbConfig = {
   development: {
     username: process.env.DEV_DB_USERNAME || 'root',
     password: process.env.DEV_DB_PASSWORD || 'root_password',

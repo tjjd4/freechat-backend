@@ -21,12 +21,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      role_id: {
-        type: Sequelize.INTEGER
-      },
-      is_deleted: {
-        type: Sequelize.BOOLEAN
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

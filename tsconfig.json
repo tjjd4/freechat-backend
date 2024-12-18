@@ -1,23 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "strict": true,
+    "target": "es6",
+    "module": "commonjs",
     "allowJs": true,
-    "moduleResolution":"node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "noImplicitAny": true,
-    "useUnknownInCatchVariables": false,
-    "inlineSourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
-  "ts-node": {
-        "esm": true
-    },
-  "lib": ["esnext"],
-  "typeRoots": ["./src/types", "./node_modules/@types"],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  "include": ["./src/**/*", "src/types/**/*"],
+  "exclude": ["node_modules"]
 }

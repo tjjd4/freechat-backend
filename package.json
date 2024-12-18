@@ -2,10 +2,9 @@
   "name": "freechat-backend",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "start": "ts-node ./src/app.ts", 
-    "dev": "nodemon"
+    "start": "ts-node src/app.ts",
+    "dev": "nodemon src/app.ts"
   },
   "_moduleAliases": {
     "@": "./src",
@@ -13,7 +12,6 @@
     "@controllers": "./src/routes"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.4.7",
@@ -27,7 +25,6 @@
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
-    "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.0",
