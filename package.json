@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/app.ts",
+    "db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create -d ./src/orm/data-source",
+    "db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d ./src/orm/data-source",
+    "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d ./src/orm/data-source"
   },
   "_moduleAliases": {
     "@": "./src",
     "@services": "./src/services",
-    "@controllers": "./src/routes"
+    "@routes": "./src/routes"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,9 +25,12 @@
     "module-alias": "^2.2.3",
     "morgan": "~1.9.1",
     "mysql2": "^3.11.5",
-    "sequelize": "^6.37.5"
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.6.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@types/cors": "^2.8.17",
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.0",
@@ -33,7 +39,6 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.2",
     "nodemon": "^3.1.9",
-    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }

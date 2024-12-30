@@ -8,9 +8,28 @@ import session from 'express-session';
 import http from 'http';
 import debugLib from 'debug';
 
+import { AppDataSource } from "./orm/data-source"
+import { runSeeders } from 'typeorm-extension';
+
+// establish database connection
+AppDataSource
+  .initialize()
+  .then( async () => {
+    console.log("Data Source has been initialized!")
+    await runSeeders(AppDataSource, {
+      seeds: ['./orm/seeding/seeds/*{.ts,.js}'],
+      factories: ['./orm/seeding/factories/*{.ts,.js}']
+    });
+    console.log("Seeding files has been executed!")
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization:", err)
+  })
+
 // 引入路由
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
+
 
 const debug = debugLib('freechat-backend:server');
 
